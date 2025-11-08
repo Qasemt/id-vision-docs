@@ -9,5 +9,3 @@ plugins:
 minima:
   skin: dark
   nav_pages: []
-  footer_pages:
-    - about.md
