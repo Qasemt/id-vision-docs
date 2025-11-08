@@ -1,3 +1,5 @@
 theme: minima
+skin: default # یا هر skin دیگری که استفاده می‌کنید
+nav: []
 title: ID Vision Docs
 description: Official documentation for ID Vision system.
