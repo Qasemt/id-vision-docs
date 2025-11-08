@@ -7,5 +7,4 @@ minima:
   nav_pages:
     - about.md
 
-# حذف کامل نوار ناوبری
-header_pages: []
+ header_pages: []
