@@ -8,5 +8,4 @@ plugins:
 
 minima:
   skin: dark
-  header_pages: [] # این خط مهمه!
-  nav_pages: []
+  header_pages: []
