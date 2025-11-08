@@ -1,13 +1,7 @@
 theme: minima
 title: ID Vision Docs
 description: Official documentation for ID Vision system.
+skin: dark
 
 minima:
-  # غیرفعال کردن لینک‌های ناوبری
-  navigation_links:
-  # غیرفعال کردن لینک‌های اجتماعی
-  social_links:
-
-# یا به صورت مستقیم
-header_pages: []
-nav_exclude: true
+  nav_pages:
