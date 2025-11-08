@@ -1,1 +1,27 @@
-# test
+# ID Vision – Documentation
+
+Welcome to the official documentation for **ID Vision**, a facial detection and recognition system powered by InsightFace.
+
+---
+
+## 📘 Overview
+
+This repository contains all documentation related to camera setup, installation, and system configuration for the ID Vision project.
+
+---
+
+## 📂 Documents
+
+| Document                                         | Description                                                  |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| [Installation Guide](docs/installation-guide.md) | Step-by-step setup for the ID Vision system.                 |
+| [Camera Setup](camera-setup.md)                  | Detailed guide for configuring cameras and bitrate settings. |
+| [Troubleshooting](troubleshooting.md)            | Common issues and their solutions.                           |
+
+---
+
+## 🧠 About the Project
+
+The ID Vision project is a private system focused on intelligent video analysis and facial recognition.
+
+© 2025 Qasem Taheri – All Rights Reserved.
