@@ -1,5 +1,8 @@
 theme: minima
-skin: default # یا هر skin دیگری که استفاده می‌کنید
-nav: []
+skin: default
+
 title: ID Vision Docs
 description: Official documentation for ID Vision system.
+
+# حذف کامل نوار ناوبری
+header_pages: []
