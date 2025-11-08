@@ -8,6 +8,6 @@ plugins:
 
 minima:
   skin: dark
-  header_pages: []
+  nav_pages: []
   footer_pages:
     - about.md
