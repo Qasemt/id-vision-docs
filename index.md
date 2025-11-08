@@ -1,4 +1,4 @@
-Welcome to the official documentation for **ID Vision**, a facial detection and recognition system powered by InsightFace.
+Welcome to the official documentation for **ID Vision**, a facial detection and recognition system.
 
 ---
 

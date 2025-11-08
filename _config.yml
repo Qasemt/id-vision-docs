@@ -1,6 +1,6 @@
 title: ID Vision Docs
 description: Official documentation for ID Vision system.
-
+baseurl: "/id-vision-docs" # اضافه شد
 remote_theme: "jekyll/minima@1e8a445"
 
 plugins:
