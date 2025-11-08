@@ -1,8 +1,13 @@
 theme: minima
-skin: default
-
 title: ID Vision Docs
 description: Official documentation for ID Vision system.
 
-# حذف کامل نوار ناوبری
+minima:
+  # غیرفعال کردن لینک‌های ناوبری
+  navigation_links:
+  # غیرفعال کردن لینک‌های اجتماعی
+  social_links:
+
+# یا به صورت مستقیم
 header_pages: []
+nav_exclude: true
