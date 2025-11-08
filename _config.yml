@@ -4,9 +4,8 @@ description: Official documentation for ID Vision system.
 
 minima:
   skin: dark
-  # غیرفعال کردن ناوبری
-  navigation_links: []
-  social_links: {}
+  nav_pages:
+    - about.md
 
 # حذف کامل نوار ناوبری
 header_pages: []
