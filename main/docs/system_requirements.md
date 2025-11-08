@@ -1,40 +1,57 @@
-# پیشنهاد برای سیستم تشخیص و شناسایی چهره
+# Proposal for a Facial Detection and Recognition System
 
-## مقدمه
+## Introduction
 
-ما خوشحالیم که این پیشنهاد ساده را برای پیاده‌سازی سیستم تشخیص و شناسایی چهره ارائه می‌دهیم. این سیستم به‌صورت ماژولار طراحی شده و می‌تواند به‌صورت پایدار و کارآمد، تعداد دوربین‌ها را بر اساس نیاز پروژه افزایش دهد (از ۱ دوربین تا ده‌ها دوربین). سیستم بر پایه مدل ورکر (Workers) عمل می‌کند، که در آن هر ورکر زیرمجموعه‌ای از دوربین‌ها را به‌طور مستقل پردازش می‌کند. این رویکرد توزیع‌شده امکان تخصیص بهینه منابع، افزایش تحمل خطا و فراهم شدن مقیاس‌پذیری را فراهم می‌کند. ورکرها جریان دوربین‌ها را مدیریت کرده، پردازش اولیه (مانند تشخیص چهره) را انجام می‌دهند و داده‌ها را به سرور هاب مرکزی ارسال می‌کنند. سرور هاب مرکزی نیز مسئول جمع‌آوری و تحلیل داده‌ها است. با فرض حدود ۱۰۰۰ پرسنل، این سیستم برای چنین مقیاسی بهینه‌سازی شده است. پیشنهاد می‌کنیم با یک اثبات مفهوم (PoC) شروع کنیم تا عملکرد سیستم در شرایط واقعی ارزیابی شود.
+We are pleased to present this concise proposal for implementing a facial detection and recognition system. The system is designed in a modular fashion, allowing it to efficiently and reliably scale from a single camera to dozens of cameras, depending on project requirements.
 
-## نیازمندی‌های سخت‌افزاری
+The architecture is based on a **worker model**, where each worker independently processes a subset of cameras. This distributed approach enables optimal resource allocation, increased fault tolerance, and improved scalability.
 
-این مشخصات حداقل/پیشنهادی برای عملکرد زمان واقعی هستند. توجه: GPU اختیاری است زیرا هنوز تست کاملی روی آن انجام نداده‌ایم و در حال تست هستیم. این ویژگی در آینده نزدیک اضافه خواهد شد و می‌تواند مصرف CPU را کاهش دهد.
+Each worker manages camera streams, performs initial processing (such as face detection), and sends the processed data to a **central hub server**, which is responsible for aggregating and analyzing the results.
 
-**نکته مهم**: هنگام محاسبه کل RAM و CPU، سربار سیستم‌عامل را جداگانه در نظر بگیرید. برای مثال:
-- سیستم‌عامل (مانند اوبونتو یا ویندوز) معمولاً ۲-۴ گیگابایت RAM و ۱۰-۲۰% CPU در حالت بیکار مصرف می‌کند.
+The system is optimized for handling up to **1,000 personnel**. We recommend starting with a **Proof of Concept (PoC)** phase to evaluate system performance in real-world conditions.
 
-### برای پردازش دوربین‌ها
+---
 
-| تعداد دوربین‌ها | تعداد ورکرهای پیشنهادی | CPU (هسته‌ها / مصرف تخمینی) | RAM (گیگابایت) | GPU (اختیاری) | ذخیره‌سازی (SSD) |
-|-------------------|---------------------------|------------------------------|----------------|------------------------|-------------------|
-| ۱-۴ دوربین      | ۱ ورکر                   | حداقل: ۴-۸ هسته (۲۰-۵۰% مصرف)<br>پیشنهادی: ۸ هسته (Intel i7 یا AMD Ryzen 7) | حداقل: ۴-۸<br>پیشنهادی: ۸ | اختیاری: NVIDIA GTX 1650+ (مصرف CPU را به ۱۰-۳۰% کاهش می‌دهد) | حداقل: ۳۳ گیگابایت |
-| ۵-۱۰ دوربین     | ۲ ورکر (۳-۵ دوربین در هر کدام) | حداقل: ۸-۱۶ هسته (۵۰-۸۰% مصرف)<br>پیشنهادی: ۱۶ هسته (Intel Xeon یا AMD EPYC) | حداقل: ۸-۱۶<br>پیشنهادی: ۱۶ | اختیاری: NVIDIA RTX 3060+ (۶+ گیگابایت VRAM، مصرف CPU را به ۳۰-۵۰% کاهش می‌دهد) | حداقل: ۸۳ گیگابایت |
-| بیش از ۱۰ دوربین | ۳+ ورکر (۴-۶ دوربین در هر کدام) | حداقل: ۱۶-۳۲ هسته (۸۰-۱۲۰% مصرف)<br>پیشنهادی: ۳۲ هسته (درجه سرور مانند AWS c5.9xlarge) | حداقل: ۱۶-۳۲<br>پیشنهادی: ۳۲ | اختیاری: NVIDIA RTX 4080+ (۱۲+ گیگابایت VRAM) یا معادل ابری | حداقل: ۱۶۷ گیگابایت |
+## Hardware Requirements
 
-### برای سرور مرکزی
+The following specifications represent the **minimum and recommended** configurations for real-time operation.
 
-| جزء          | CPU (هسته‌ها / مصرف تخمینی) | RAM (گیگابایت) | GPU (اختیاری) | ذخیره‌سازی (SSD) | شبکه            |
-|--------------|------------------------------|-----------------|----------------|-------------------|-----------------|
-| سرور مرکزی | حداقل: ۸ هسته (۲۰-۴۰% مصرف)<br>پیشنهادی: ۱۶ هسته (Intel Xeon یا AMD EPYC) | حداقل: ۱۶<br>پیشنهادی: ۳۲ | اختیاری: NVIDIA RTX 3060 | حداقل: ۱۶۷ گیگابایت<br>پیشنهادی: ۳۳۳ گیگابایت | گیگابیت اترنت یا سریع‌تر |
+**Note:** GPU acceleration is **optional** — it is currently under testing and will be added in the near future. GPU usage can significantly reduce CPU load.
 
+**Important:** When calculating total system requirements, always account for **operating system overhead** separately. For example:
 
+- The OS (e.g., debian 12,13.1 or Windows) typically consumes 2–4 GB RAM and 10–20% CPU when idle.
 
-## برنامه پیاده‌سازی
+---
 
-۱. **تنظیم اولیه**: استقرار برای PoC با ۱-۲ دوربین.
-۲. **آزمایش**: اعتبارسنجی عملکرد و دقت شناسایی.
-۳. **استقرار کامل**: مقیاس به کل دوربین‌ها.
-۴. **پشتیبانی**: نگهداری مداوم و به‌روزرسانی‌ها.
+### For Camera Processing Nodes
 
-## نتیجه‌گیری
-این سیستم راه‌حلی کارآمد برای نیازهای شما است. اگر مایل به دمو یا سفارشی‌سازی هستید، اطلاع دهید.
+| Number of Cameras | Recommended Number of Workers | CPU (Cores / Estimated Load)                                                                  | RAM (GB)                      | GPU (Optional)                                                       | Storage (SSD) |
+| ----------------- | ----------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------- | ------------- |
+| 1–4 cameras       | 1 worker                      | Min: 4–8 cores (20–50% load)<br>Recommended: 8 cores (Intel i7 or AMD Ryzen 7)                | Min: 4–8<br>Recommended: 8    | Optional: NVIDIA GTX 1650+ (reduces CPU usage by 10–30%)             | ≥ 33 GB       |
+| 5–10 cameras      | 2 workers (3–5 cameras each)  | Min: 8–16 cores (50–80% load)<br>Recommended: 16 cores (Intel Xeon or AMD EPYC)               | Min: 8–16<br>Recommended: 16  | Optional: NVIDIA RTX 3060+ (6 GB VRAM+, reduces CPU usage by 30–50%) | ≥ 83 GB       |
+| 10+ cameras       | 3+ workers (4–6 cameras each) | Min: 16–32 cores (80–120% load)<br>Recommended: 32 cores (server-grade, e.g., AWS c5.9xlarge) | Min: 16–32<br>Recommended: 32 | Optional: NVIDIA RTX 4080+ (12 GB VRAM+) or cloud equivalent         | ≥ 167 GB      |
 
- 
+---
+
+### For the Central Server
+
+| Component          | CPU (Cores / Estimated Load)                                                 | RAM (GB)                   | GPU (Optional)            | Storage (SSD)                      | Network                    |
+| ------------------ | ---------------------------------------------------------------------------- | -------------------------- | ------------------------- | ---------------------------------- | -------------------------- |
+| Central Hub Server | Min: 8 cores (20–40% load)<br>Recommended: 16 cores (Intel Xeon or AMD EPYC) | Min: 16<br>Recommended: 32 | Optional: NVIDIA RTX 3060 | Min: 167 GB<br>Recommended: 333 GB | Gigabit Ethernet or faster |
+
+---
+
+## Implementation Plan
+
+1. **Initial Setup:** Deploy PoC with 1–2 cameras.
+2. **Testing:** Validate performance and recognition accuracy.
+3. **Full Deployment:** Scale up to all target cameras.
+4. **Support:** Provide ongoing maintenance and updates.
+
+---
+
+## Conclusion
+
+This system provides an efficient and scalable solution for facial detection and recognition needs.
+If you are interested in a live demo or customized implementation, please let us know.
