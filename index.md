@@ -10,10 +10,10 @@ This repository contains all documentation related to camera setup, installation
 
 ## 📂 Documents
 
-| Document                                         | Description                                                  |
-| ------------------------------------------------ | ------------------------------------------------------------ |
-| [Installation Guide](docs/installation-guide.md) | Step-by-step setup for the ID Vision system.                 |
-| [Camera Setup](docs/camera-setup.md)             | Detailed guide for configuring cameras and bitrate settings. |
+| Document                                              | Description                                                  |
+| ----------------------------------------------------- | ------------------------------------------------------------ |
+| [Installation Guide](main/docs/installation-guide.md) | Step-by-step setup for the ID Vision system.                 |
+| [Camera Setup](main/docs/camera-setup.md)             | Detailed guide for configuring cameras and bitrate settings. |
 
 ---
 
