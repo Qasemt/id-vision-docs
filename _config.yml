@@ -1,7 +1,7 @@
 theme: minima
 title: ID Vision Docs
 description: Official documentation for ID Vision system.
-
+remote_theme: "jekyll/minima@1e8a445"
 minima:
   skin: dark # تم تاریک فعال شد
   header_pages: [] # حذف کامل ناوبری از هدر
