@@ -6,7 +6,7 @@ This document provides best practices and installation guidelines for setting up
 
 ## 1. Introduction
 
-Facial recognition performance depends heavily on camera setup and environmental conditions. The following guidelines ensure optimal camera installation for reliable face detection and recognition using models such as **InsightFace** or similar systems.
+Facial recognition performance depends heavily on camera setup and environmental conditions. The following guidelines ensure optimal camera installation for reliable face detection and recognition.
 
 ---
 
@@ -23,6 +23,8 @@ Facial recognition performance depends heavily on camera setup and environmental
 - The camera should be angled **15–30 degrees downward** to capture the upper body and face area clearly.
 - Avoid excessive downward tilt — faces should be fully visible, not just the tops of heads.
 - The camera should face the direction of pedestrian movement whenever possible.
+
+<img src="../assets/camera_setup_angle.jpg" alt="Recommended Camera Position" width="32%">
 
 ### Placement Relative to Movement
 
