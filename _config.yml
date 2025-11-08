@@ -12,7 +12,3 @@ minima:
   nav_pages: []
   footer_pages:
     - about.md
-  sass:
-    style: compressed
-  include:
-    - assets/css
