@@ -24,7 +24,7 @@ Facial recognition performance depends heavily on camera setup and environmental
 - Avoid excessive downward tilt — faces should be fully visible, not just the tops of heads.
 - The camera should face the direction of pedestrian movement whenever possible.
 
-<img src="../assets/camera_setup_angle.jpg" alt="Recommended Camera Position" width="32%">
+<img src="assets/camera_setup_angle.jpg" alt="Recommended Camera Position" width="32%">
 
 ### Placement Relative to Movement
 

@@ -3,8 +3,7 @@ title: ID Vision Docs
 description: Official documentation for ID Vision system.
 
 minima:
-  skin: dark
-  nav_pages:
+  skin: dark # تم تاریک فعال شد
+  header_pages: [] # حذف کامل ناوبری از هدر
+  footer_pages: # تنظیم لینک‌های فوتر (اختیاری)
     - about.md
-
- header_pages: []
