@@ -9,3 +9,5 @@ plugins:
 minima:
   skin: dark
   header_pages: []
+include:
+  - assets/css/custom.css
