@@ -8,7 +8,7 @@ This repository contains all documentation related to camera setup, installation
 
 ---
 
-<img src="assets/head_pose_estimation_face.png" alt="Recommended Camera Position" width="13%">
+<img src="assets/head_pose_estimation_face.png" alt="Recommended Camera Position" width="21%">
 
 ## 📂 Documents
 
