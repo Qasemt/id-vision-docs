@@ -25,7 +25,7 @@ The following specifications represent the **minimum and recommended** configura
 ---
 
 ### For Camera Processing Nodes
-
+"These hardware specifications listed in the table below are Recommended for achieving ideal and optimal system performance. Using the Minimum configurations may reduce performance or cause issues under heavier loads. For the best results, please use the Recommended specifications."
 | Number of Cameras | Recommended Number of Workers | CPU (Cores / Estimated Load)                                                                  | RAM (GB)                      | GPU (Optional)                                                       | Storage (SSD) |
 | ----------------- | ----------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------- | ------------- |
 | 1–4 cameras       | 1 worker                      | Min: 5–8 cores (20–50% load)<br>Recommended: 8 cores (Intel i7 or AMD Ryzen 7)                | Min: 8–12<br>Recommended: 12    | Optional: NVIDIA GTX 1650+ (reduces CPU usage by 10–30%)             | ≥ 33 GB       |
