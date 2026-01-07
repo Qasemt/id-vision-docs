@@ -28,9 +28,8 @@ The following specifications represent the **minimum and recommended** configura
 
 | Number of Cameras | Recommended Number of Workers | CPU (Cores / Estimated Load)                                                                  | RAM (GB)                      | GPU (Optional)                                                       | Storage (SSD) |
 | ----------------- | ----------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------- | ------------- |
-| 1–4 cameras       | 1 worker                      | Min: 4–8 cores (20–50% load)<br>Recommended: 8 cores (Intel i7 or AMD Ryzen 7)                | Min: 4–8<br>Recommended: 8    | Optional: NVIDIA GTX 1650+ (reduces CPU usage by 10–30%)             | ≥ 33 GB       |
-| 5–10 cameras      | 2 workers (3–5 cameras each)  | Min: 8–16 cores (50–80% load)<br>Recommended: 16 cores (Intel Xeon or AMD EPYC)               | Min: 8–16<br>Recommended: 16  | Optional: NVIDIA RTX 3060+ (6 GB VRAM+, reduces CPU usage by 30–50%) | ≥ 83 GB       |
-| 10+ cameras       | 3+ workers (4–6 cameras each) | Min: 16–32 cores (80–120% load)<br>Recommended: 32 cores (server-grade, e.g., AWS c5.9xlarge) | Min: 16–32<br>Recommended: 32 | Optional: NVIDIA RTX 4080+ (12 GB VRAM+) or cloud equivalent         | ≥ 167 GB      |
+| 1–4 cameras       | 1 worker                      | Min: 5–8 cores (20–50% load)<br>Recommended: 8 cores (Intel i7 or AMD Ryzen 7)                | Min: 8–12<br>Recommended: 12    | Optional: NVIDIA GTX 1650+ (reduces CPU usage by 10–30%)             | ≥ 33 GB       |
+
 
 ---
 
