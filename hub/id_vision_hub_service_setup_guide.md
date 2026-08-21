@@ -231,6 +231,36 @@ Choose an option:
 
 ---
 
+## 🔐 License Activation & Maintenance Mode
+
+**ID Vision Hub** requires a signed, hardware-bound license before it will leave Maintenance Mode.
+
+### 🧩 How It Works
+
+- On startup, the hub validates `files\license\license.json` against the packaged public key and this machine's hardware fingerprint.
+- If the license is missing, invalid, or expired, the hub runs in **Maintenance Mode** until a valid license is uploaded.
+- The license also carries the account's **worker** and **camera** limits (`max_workers`, `max_cameras`); once active, the hub enforces these limits when registering new workers/cameras.
+- A license issued for **ID Vision Worker** is explicitly rejected by the hub, and vice versa — each product checks its own `product` field in the license file, so the hub and each worker need their own separate `license.json`, even though all are signed with the same key.
+
+### 🚀 Activating a License
+
+1. Open the hub's admin UI: `http://<hub-host>:<port>/maintenance/` (default port **5001** — <!-- TODO: confirm --> if changed during installation).
+2. Copy the **hardware fingerprint** shown on the page.
+3. Send the fingerprint to whoever issues licenses and obtain a `license.json` signed for **this** fingerprint with `"product": "id_vision_hub"`.
+4. Upload the `.json` file on the `/maintenance/` page.
+5. On success, the hub exits maintenance mode automatically.
+
+### 📂 License File Locations
+
+| File             | Default path (relative to working directory) | Override                    |
+| ---------------- | ---------------------------------------------- | ----------------------------- |
+| `license.json`   | `files\license\license.json`                  | `ID_VISION_LICENSE_PATH`     |
+| `public_key.pem` | `files\license\public_key.pem`                | `ID_VISION_PUBLIC_KEY_PATH`  |
+
+License levels are `TRIAL`, `BASIC`, `PRO`, `ENTERPRISE`.
+
+---
+
 ## 🧾 Service Configuration Details
 
 | Parameter                | Description                                     |
@@ -255,6 +285,7 @@ Choose an option:
 | ⚠️ `FFMPEG validation failed`    | Incorrect directory or missing files | Ensure `ffmpeg.exe` and `ffprobe.exe` exist   |
 | 🐍 `Package installation failed` | Missing `.whl` or dependencies       | Verify `wheelhouse` and retry offline install |
 | 🔁 `Service doesn't restart`     | NSSM config not updated              | Re-run option `[1] Install Service`           |
+| 🔒 Redirected to `/maintenance/` on every page | License missing, invalid, expired, or issued for the wrong product | Upload a `license.json` signed for this hub's fingerprint with `"product": "id_vision_hub"` — see the **License Activation & Maintenance Mode** section above |
 
 ---
 
@@ -285,3 +316,8 @@ C:\work_space\id_vision_hub\
 | 4    | Choose offline/online installation  |
 | 5    | Install service (option 1)          |
 | 6    | Start service and verify status     |
+
+---
+
+**Author:** Qasem Taheri
+**Last Updated:** August 2026
