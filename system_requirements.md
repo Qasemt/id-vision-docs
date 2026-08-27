@@ -41,6 +41,49 @@ The following specifications represent the **minimum and recommended** configura
 
 ---
 
+### How Per-Camera Requirements Are Measured
+
+Rather than relying only on a generic estimate, the camera processing node application ships
+with an automated capacity-benchmark tool (`capacity_benchmark.py`, with an optional local web
+UI) that runs the real face-detection pipeline against simulated camera streams directly on a
+candidate machine. It measures, per camera, on top of the machine's own idle baseline:
+
+- CPU cost, as both logical cores used and an approximate GHz-equivalent (cores used × the
+  machine's clock speed — a rough shopping-conversation figure only; it does not account for
+  CPU architecture/generation differences, so treat it as an order-of-magnitude guide)
+- RAM cost, in megabytes
+- End-to-end per-frame processing latency and internal queue backlog, to confirm the machine
+  is keeping up in real time — not just technically staying online
+
+This lets an integrator get a defensible, hardware-specific number for a specific deployment by
+running the benchmark on the actual candidate machine with the same detection settings
+(resolution, GPU on/off, optional features) intended for production, instead of relying only on
+the general table above.
+
+**Example measurement** (illustrative only — this run was on a constrained 4-core test machine
+and is shown to demonstrate the report format, not as a recommended spec; note the result is a
+FAIL):
+
+| Cameras | CPU avg% | CPU cores used | CPU cores Δ/camera | CPU GHz Δ/camera | RAM Δ vs baseline (MB) | RAM Δ/camera (MB) | Queue avg | Sat. ratio | Latency (ms) | Alive | Result |
+| ------- | -------- | --------------- | ------------------- | ----------------- | ----------------------- | ------------------- | --------- | ---------- | ------------- | ----- | ------ |
+| 1       | 99.95%   | 4.0              | 3.8                  | 7.96               | 1754.64                 | 1754.64              | 243.53    | 0.37       | 29375.92      | 1     | fail   |
+
+Here, a single camera already saturated all 4 CPU cores of the test machine and per-frame
+latency degraded past 29 seconds — a sign that this particular test machine lacked enough CPU
+headroom for even one camera at these settings, not a statement about the product's real-world
+cost. A camera-processing node sized per the table above (with real CPU headroom) is expected to
+produce a passing result instead.
+
+<!-- TODO: replace/supplement this example with a measurement taken on adequately-sized reference
+     hardware once available, so the illustrative row also shows a PASS scenario. -->
+
+<!-- TODO: this measured per-camera cost (~3.8 CPU cores for one camera) and the "For Camera
+     Processing Nodes" table above (~8 cores recommended for 1–4 cameras) come from two different
+     estimation methods and are not yet formally reconciled — flagging for the docs/engineering
+     owner rather than silently editing the table above. -->
+
+---
+
 ## Implementation Plan
 
 1. **Initial Setup:** Deploy PoC with 1–2 cameras.
