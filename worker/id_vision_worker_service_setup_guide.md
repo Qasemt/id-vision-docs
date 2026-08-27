@@ -309,6 +309,10 @@ Camera setup has its own dedicated page in the worker's admin UI — `/config/ca
 
 This table is only **editable** when **Camera Provider** (`Config → Commons`) is set to `local`. With any other provider, the hub owns the camera list, the fields here are shown **read-only**, and the page tells you where to switch it back if you need to edit locally.
 
+> **Camera Provider = `hub`:** cameras are no longer typed in on this page at all — they are created once on the hub's **Camera Pool** page (`/workers/camera_pool`) and allocated to this worker from there. This page then simply mirrors what the hub has allocated, live, and updates without a restart when the allocation changes. See the **Managing the Camera Pool** section of the [ID Vision Hub Service Setup Guide](../hub/id_vision_hub_service_setup_guide.md) for how to add and allocate a camera.
+>
+> Two optional keys under `commons` in this worker's `config.yaml` control a diagnostic feature for this mode: `report_camera_lock` (`true`/`false`, default `false`) makes the worker tell the hub which camera(s) it is actively streaming, so the hub's Camera Pool page can show a lock status and warn about two workers claiming the same camera; `lock_reaffirm_interval_sec` (default `60`) is how often, in seconds, it repeats that report. Leave `report_camera_lock` off unless you specifically want this status visible on the hub.
+
 | Column | Config key | Description |
 | ------ | ---------- | ------------ |
 | Id | `id` | Local identifier for the camera row. |
@@ -329,6 +333,8 @@ Other controls on this table:
   | Window (s) | `capture_rate_limit_window_seconds` | Uses the site-wide **Window (s)** value |
 
   Use this when one camera needs different motion sensitivity or capture pacing than the rest — for example, a camera pointed at a busy entrance versus one covering a quiet corridor.
+
+**Setting these from Face Tuning instead:** the worker's **Face Tuning** tool (`/tools/face_tuning`) can capture a short burst of frames from a chosen camera, suggest values for these same per-camera fields based on what it sees, and save them with one click via its **Save Thresholds to Camera** button — instead of computing and typing them in here by hand. With **Camera Provider** set to `local`, this writes into the camera's row in `config.yaml`, same as editing it on this page. With **Camera Provider** set to `hub`, it instead saves to that camera's record on the hub's **Camera Pool** page and applies immediately on this worker, without an application restart — and because it's stored on the hub, the tuning is not lost if the camera is later reassigned to a different worker.
 
 ### 🎛️ Camera Settings
 

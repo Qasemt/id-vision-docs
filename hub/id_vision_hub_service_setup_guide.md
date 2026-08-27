@@ -261,6 +261,44 @@ License levels are `TRIAL`, `BASIC`, `PRO`, `ENTERPRISE`.
 
 ---
 
+## 📷 Managing the Camera Pool (`/workers/camera_pool`)
+
+The hub's admin UI has a **Camera Pool** page, linked from the **Workers** page, where every camera in the deployment is defined once and then handed out to workers — instead of typing the same camera's RTSP link into more than one worker by hand, which risks the same physical camera ending up configured on two workers at once.
+
+### 🧩 How It Works
+
+- A camera is created in the pool with its **Camera Code**, **Title**, **RTSP Link**, and optional **Scale** — it starts **unassigned**.
+- An unassigned camera is then **allocated** to one worker from the Camera Pool page. Only an allocated camera actually gets picked up and run by a worker.
+- A camera can be **unallocated** at any time, returning it to the pool so it can be reassigned to a different worker without re-entering its details.
+- Any worker whose **Camera Provider** setting (`Config → Commons` on the worker's own admin UI) is `hub` reads its camera list from this pool automatically — its own `/config/camera` page becomes **read-only** and simply displays what the hub has allocated to it. See the **Configuring Cameras** section of the [ID Vision Worker Service Setup Guide](../worker/id_vision_worker_service_setup_guide.md) for what that looks like from the worker side.
+
+### 🧭 Creating and Allocating a Camera
+
+1. On the **Camera Pool** page, click **Add Camera**.
+2. Enter the **Camera Code**, **Title**, **RTSP Link**, and **Scale** — or click **Select from Padis Cloud...** to pick a camera from the Padis cloud catalogue and prefill these fields automatically.
+3. Save. The camera appears in the pool as **unassigned**.
+4. Click **Allocate** on that camera's row and choose the worker it should run on.
+5. The worker is notified immediately; no manual restart of the worker service is required for the camera to start.
+
+To move a camera to a different worker, click **Unallocate** first, then **Allocate** it to the new worker. Its tuning (see **Fine-Tuning and the Camera Pool** below) is not lost when you do this.
+
+### 📥 Bulk Import / Export
+
+- **Export CSV** downloads every pool camera (`camera_code`, `title`, `rtsp_link`, `scale`, `enabled`) as a backup file.
+- **Import CSV** accepts the same file back in: a row whose `camera_code` matches an existing pool camera updates it, and an unmatched `camera_code` is added as a new, unassigned camera. Camera allocation (which worker owns it) is **not** included in the file and must be redone by hand after an import.
+
+### 🚦 Lock Status and Conflicts
+
+Once a camera is allocated and running, the Camera Pool page shows a **Lock Status** badge confirming which worker is actively streaming it, so you can tell "assigned to" (the admin's decision) apart from "actually running on" (what's really happening on site). If two workers both report running the same camera, a **Conflict** badge appears on that row, and a matching camera-conflict count badge appears on the Workers page — resolve it by unallocating the camera from whichever worker should not have it.
+
+**Note:** this status only appears for a worker that has `report_camera_lock: true` set under `commons` in its own `config.yaml` (off by default — enable it per site once you've confirmed that site's workers should report their lock status). A worker with this left at its default reaffirms nothing, and its cameras always show as **Not connected** on this page even while running normally.
+
+### 🎚️ Fine-Tuning and the Camera Pool
+
+A worker's **Face Tuning** tool can save detection thresholds (yaw, pitch, eye ratio, and similar quality-gate values — see the worker guide's **Configuring Face Recognition** section for what each one does) directly to a camera's Camera Pool record. Because this tuning lives on the pool record instead of on the worker, it survives that camera being unallocated and reallocated to a different worker later — you do not need to redo tuning after moving a camera between workers. The pool table's **Last Tuned** column shows when a camera was last tuned this way, and by which worker.
+
+---
+
 ## 🧾 Service Configuration Details
 
 | Parameter                | Description                                     |
