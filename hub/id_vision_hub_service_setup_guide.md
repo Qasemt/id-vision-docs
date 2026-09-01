@@ -295,7 +295,7 @@ Once a camera is allocated and running, the Camera Pool page shows a **Lock Stat
 
 ### 🎚️ Fine-Tuning and the Camera Pool
 
-A worker's **Face Tuning** tool can save detection thresholds (yaw, pitch, eye ratio, and similar quality-gate values — see the worker guide's **Configuring Face Recognition** section for what each one does) directly to a camera's Camera Pool record. Because this tuning lives on the pool record instead of on the worker, it survives that camera being unallocated and reallocated to a different worker later — you do not need to redo tuning after moving a camera between workers. The pool table's **Last Tuned** column shows when a camera was last tuned this way, and by which worker.
+A worker's **Face Tuning** tool can save detection thresholds (yaw, pitch, eye ratio, and similar quality-gate values — see the [Face Tuning Tool Guide](../worker/face_tuning_guide.md) for what each one does) directly to a camera's Camera Pool record. Because this tuning lives on the pool record instead of on the worker, it survives that camera being unallocated and reallocated to a different worker later — you do not need to redo tuning after moving a camera between workers. The pool table's **Last Tuned** column shows when a camera was last tuned this way, and by which worker.
 
 ---
 

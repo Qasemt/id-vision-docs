@@ -301,6 +301,12 @@ The **Check-Interval Guard** and **Capture Rate Limit** groups above are stored 
 
 ---
 
+## 🎯 Face Tuning Tool (`/tools/face_tuning`)
+
+Per-camera detection tuning, with a live pass/fail report and plain-language explanations for the install team, now has its own page: see the **[Face Tuning Tool Guide](face_tuning_guide.md)**.
+
+---
+
 ## 📷 Configuring Cameras (`/config/camera`)
 
 Camera setup has its own dedicated page in the worker's admin UI — `/config/camera` — with two sections reachable from a sticky sidebar: **📷 Camera List** and **🎛️ Camera Settings**. As on the Face Recognition page, most changes here require an **application restart** to take effect (the page shows this warning in the sidebar).
@@ -334,7 +340,7 @@ Other controls on this table:
 
   Use this when one camera needs different motion sensitivity or capture pacing than the rest — for example, a camera pointed at a busy entrance versus one covering a quiet corridor.
 
-**Setting these from Face Tuning instead:** the worker's **Face Tuning** tool (`/tools/face_tuning`) can capture a short burst of frames from a chosen camera, suggest values for these same per-camera fields based on what it sees, and save them with one click via its **Save Thresholds to Camera** button — instead of computing and typing them in here by hand. With **Camera Provider** set to `local`, this writes into the camera's row in `config.yaml`, same as editing it on this page. With **Camera Provider** set to `hub`, it instead saves to that camera's record on the hub's **Camera Pool** page and applies immediately on this worker, without an application restart — and because it's stored on the hub, the tuning is not lost if the camera is later reassigned to a different worker.
+**Setting these from Face Tuning instead:** the worker's **Face Tuning** tool (`/tools/face_tuning`) can capture a short burst of frames from a chosen camera, suggest values for these same per-camera fields based on what it sees, and save them with one click via its **Save Thresholds to Camera** button — instead of computing and typing them in here by hand. With **Camera Provider** set to `local`, this writes into the camera's row in `config.yaml`, same as editing it on this page. With **Camera Provider** set to `hub`, it instead saves to that camera's record on the hub's **Camera Pool** page and applies immediately on this worker, without an application restart — and because it's stored on the hub, the tuning is not lost if the camera is later reassigned to a different worker. See the **[Face Tuning Tool Guide](face_tuning_guide.md)** for a step-by-step walkthrough, plain-language explanations of each value with its min/max range, and guidance for profile/angled capture.
 
 ### 🎛️ Camera Settings
 
@@ -398,4 +404,4 @@ These apply to every camera (there is no per-camera override for this section).
 ---
 
 **Author:** Qasem Taheri
-**Last Updated:** August 2026
+**Last Updated:** September 2026
