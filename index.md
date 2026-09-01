@@ -24,4 +24,14 @@ This repository contains all documentation related to camera setup, installation
 
 The ID Vision project is a private system focused on intelligent video analysis and facial recognition.
 
+---
+
+## 👤 Developer
+
+<a href="https://github.com/Qasemt" target="_blank" rel="noopener noreferrer">
+  <img src="https://github.com/Qasemt.png" alt="Qasem Taheri - GitHub Profile" width="12%">
+</a>
+
+[Qasem Taheri](https://github.com/Qasemt) — Developer of the ID Vision project.
+
 © 2025 Qasem Taheri – All Rights Reserved.
