@@ -34,6 +34,10 @@ With **Camera Provider** set to `local`, saving writes into the camera's row in 
 
 **Yaw** is the left/right turn (facing away from the camera to one side). **Pitch** is the up/down tilt (nodding). **Roll** is a sideways head tilt toward one shoulder — it is measured but ID Vision never checks it, so there is no "Max Roll" setting anywhere in the app.
 
+The samples below show these three angles on a real face, from straight-on to the pose model's extreme of ±90° on each axis (listed as Pitch, Yaw, Roll):
+
+<img src="../assets/sample_angles_pitch_yaw_roll.png" alt="Sample photos of a face at combined pitch, yaw, and roll angles, from 0 to the model's ±90 extreme on each axis" width="85%">
+
 Plain-language explanation for the install team, with the range of values the software will accept:
 
 | Parameter | Plain-language meaning | Min | Max | Normal default |
@@ -54,6 +58,10 @@ Plain-language explanation for the install team, with the range of values the so
 ### Yaw and pitch: worked examples
 
 The **+**/**−** sign only shows which side the head is turned or tilted toward — the check only looks at the size of the number (its distance from 0°), ignoring the sign. So a face at **+32°** and one at **−32°** are treated exactly the same by **Max Yaw**.
+
+The samples below show yaw alone, in 15° steps, to compare against the specific angles in the table:
+
+<img src="../assets/sample_yaw.png" alt="Sample photos of a face turning from -90 to +90 degrees yaw in 15-degree steps" width="85%">
 
 | Yaw | Pitch | What it looks like | Passes Normal defaults (Max Yaw 32°, Max Pitch 15°)? |
 | ---: | ---: | --- | --- |
