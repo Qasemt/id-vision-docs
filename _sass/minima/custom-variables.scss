@@ -1,0 +1,8 @@
+// Hook to override minima's predefined variables (loaded before the
+// defaults, so plain assignment here wins over the theme's `!default`).
+
+// Minima's 800px content column is too narrow for our wide parameter/range
+// tables (e.g. the Face Tuning guide) — long "Plain-language meaning" text
+// and the numeric columns end up squeezed. Give every page more horizontal
+// room.
+$content-width: 1140px;

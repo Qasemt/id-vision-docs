@@ -37,6 +37,10 @@ Note the `/id-vision-docs/` suffix — omitting it gives a 404 because of
   and post header. This means the `# H1` inside each Markdown file is the only
   visible title — every page needs one, and it should match its `index.md` link
   text.
+- `_sass/minima/custom-variables.scss` overrides the theme's default variables
+  (currently `$content-width`, widened from minima's default 800px so tables
+  with several columns of text don't get squeezed). It's loaded before the
+  theme sets its `!default` values, so a plain assignment there wins.
 - Layout overrides live in `_includes/default.html` and `_includes/header.html`,
   overriding the remote theme's versions. Editing them changes every page.
 
