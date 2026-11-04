@@ -259,6 +259,26 @@ Choose an option:
 
 License levels are `TRIAL`, `BASIC`, `PRO`, `ENTERPRISE`.
 
+### 🎁 Requesting a Free Trial License
+
+While no valid license is active, the `/maintenance/` page offers **Request a Free Trial License**.
+
+1. Make sure the hub machine has internet access.
+2. Enter the customer's company or organization name.
+3. Click **Request Trial License**.
+
+The trial is issued for **this** machine's fingerprint and lasts **14 days**, with at most **5 cameras** and **1 worker**. Each machine gets **one** trial; a second request is refused. Trials are **not** available on a virtual machine or container — install on physical hardware, or obtain a full license.
+
+### 🖥️ Licenses on a Virtual Machine
+
+On a virtual machine or container, a license works for at most **2 years** from its issue date, even if its own expiry date is later. The license details on the `/maintenance/` page show the earlier of the two dates.
+
+When the 2 years are over, the hub enters Maintenance Mode and the page says so. To keep using the hub, install it on a physical machine or use a hardware key (dongle) license. Physical machines and dongle licenses are not affected by this limit.
+
+### 🤝 Partner-Issued Licenses
+
+A license issued by a partner company from the **Issue a license (partner companies)** section of the `/maintenance/` page carries that partner's name. When the partner's branding is built into the hub, the **About** page and the page footer show the partner's name, logo, and copyright instead of **ID Vision Hub**'s. The software version shown is always the hub's real version.
+
 ---
 
 ## 📷 Managing the Camera Pool (`/workers/camera_pool`)
@@ -297,6 +317,26 @@ Once a camera is allocated and running, the Camera Pool page shows a **Lock Stat
 
 A worker's **Face Tuning** tool can save detection thresholds (yaw, pitch, eye ratio, and similar quality-gate values — see the [Face Tuning Tool Guide](../worker/face_tuning_guide.md) for what each one does) directly to a camera's Camera Pool record. Because this tuning lives on the pool record instead of on the worker, it survives that camera being unallocated and reallocated to a different worker later — you do not need to redo tuning after moving a camera between workers. The pool table's **Last Tuned** column shows when a camera was last tuned this way, and by which worker.
 
+### 🔲 Detection Area (ROI)
+
+Limit each camera to the part of the image where people should be detected — for example, the walkway in front of a door rather than the corridor behind it.
+
+1. On the **Camera Pool** page, click **Edit** on the camera's row.
+2. Click **Detection Area (ROI)**. The hub shows a snapshot from the camera. If the hub server cannot reach the camera network, a blank frame is shown instead; it stands for the whole camera image.
+3. Click on the image to place the corners of an area. Click the first corner again (or **Close Shape**) to finish it. Add as many areas as needed.
+4. Click **Apply**, then **Save Changes**. The camera's worker is notified and uses the new area without a restart.
+
+To remove the limit, open the editor, click **Clear All**, then **Apply** and **Save Changes**. With no area, the whole image is used.
+
+How each worker uses the area:
+
+| Worker | A detection counts when |
+| ------ | ----------------------- |
+| **ID Vision Worker** | the centre of the face is inside an area |
+| **Hygiene Vision Worker** | the person's feet (the bottom middle of their box) are inside an area — draw over the floor where people stand |
+
+**Note:** the area is stored with the camera in the pool, so it moves with the camera when you allocate it to another worker.
+
 ---
 
 ## 🧾 Service Configuration Details
@@ -324,6 +364,8 @@ A worker's **Face Tuning** tool can save detection thresholds (yaw, pitch, eye r
 | 🐍 `Package installation failed` | Missing `.whl` or dependencies       | Verify `wheelhouse` and retry offline install |
 | 🔁 `Service doesn't restart`     | NSSM config not updated              | Re-run option `[1] Install Service`           |
 | 🔒 Redirected to `/maintenance/` on every page | License missing, invalid, expired, or issued for the wrong product | Upload a `license.json` signed for this hub's fingerprint with `"product": "id_vision_hub"` — see the **License Activation & Maintenance Mode** section above |
+| 🖥️ Maintenance page says the virtual-machine period has ended | The license has run for 2 years on a virtual machine | Install the hub on a physical machine, or use a dongle license |
+| 🎁 Trial request refused | A trial was already issued for this machine, the machine is a virtual machine, or there is no internet access | Obtain a full license, or check the internet connection and retry |
 
 ---
 
@@ -358,4 +400,4 @@ C:\work_space\id_vision_hub\
 ---
 
 **Author:** Qasem Taheri
-**Last Updated:** August 2026
+**Last Updated:** November 2026

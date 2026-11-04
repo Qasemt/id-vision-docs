@@ -207,6 +207,27 @@ Choose an option:
 
 License levels are `TRIAL`, `BASIC`, `PRO`, `ENTERPRISE`; the worker also enforces the license's `expiration_date`.
 
+### 🎁 Requesting a Free Trial License
+
+While no valid license is active, the `/maintenance/` page offers a free trial request.
+
+1. Make sure the worker machine has internet access.
+2. Enter the customer's company or organization name.
+3. Click **Request Trial License**.
+4. **Restart the `id_vision_worker` service** so the capture/detection pipeline starts.
+
+The trial is issued for **this** machine's fingerprint and lasts **14 days**. Each machine gets **one** trial; a second request is refused. Trials are **not** available on a virtual machine or container — install on physical hardware, or obtain a full license.
+
+### 🖥️ Licenses on a Virtual Machine
+
+On a virtual machine or container, a license works for at most **2 years** from its issue date, even if its own expiry date is later. The license details on the `/maintenance/` page show the earlier of the two dates.
+
+When the 2 years are over, the worker enters Maintenance Mode and the page says so. To keep using the worker, install it on a physical machine or use a hardware key (dongle) license. Physical machines and dongle licenses are not affected by this limit.
+
+### 🤝 Partner-Issued Licenses
+
+A license issued by a partner company from the `/maintenance/` page carries that partner's name. When the partner's branding is built into the worker, the **About** page and the page footer show the partner's name, logo, and copyright. The software version shown is always the worker's real version.
+
 ### 🪪 Troubleshooting
 
 | Symptom                                              | Likely Cause                                          | Resolution                                                                                      |
@@ -214,6 +235,8 @@ License levels are `TRIAL`, `BASIC`, `PRO`, `ENTERPRISE`; the worker also enforc
 | Redirected to `/maintenance/` on every page           | License missing, invalid, or expired                  | Follow **Activating a License** above                                                            |
 | `License validation failed` on upload                 | Wrong fingerprint, wrong `product` field, bad signature | Re-issue the license for the fingerprint shown on `/maintenance/` with `"product": "id_vision_worker"` |
 | License uploaded but capture pipeline still not running | Worker left maintenance mode but wasn't restarted    | Restart the `id_vision_worker` service                                                           |
+| Maintenance page says the virtual-machine period has ended | The license has run for 2 years on a virtual machine | Install the worker on a physical machine, or use a dongle license                              |
+| Trial request refused                                 | A trial was already issued for this machine, the machine is a virtual machine, or there is no internet access | Obtain a full license, or check the internet connection and retry |
 
 ---
 
@@ -404,4 +427,4 @@ These apply to every camera (there is no per-camera override for this section).
 ---
 
 **Author:** Qasem Taheri
-**Last Updated:** September 2026
+**Last Updated:** November 2026
