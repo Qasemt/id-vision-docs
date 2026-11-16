@@ -41,6 +41,38 @@ The following specifications represent the **minimum and recommended** configura
 
 ---
 
+### Quick Estimate: The Capacity Calculator (PassMark-Based)
+
+Before running the full benchmark described below, the camera processing node application's
+admin UI includes a built-in **Capacity Calculator** page for a faster, rougher estimate.
+
+It compares a candidate CPU's **PassMark CPU Mark score** — a single number published at
+[cpubenchmark.net](https://www.cpubenchmark.net/) that represents a CPU's aggregate multi-core
+performance, used here only to compare candidate CPUs, not as a product spec — against a
+conservative per-camera cost built into the application:
+
+- ~2,000 PassMark points of free CPU capacity per camera stream (face detection running on CPU
+  only, no GPU)
+- ~1.6 GB of RAM per camera stream
+
+To use it when sourcing hardware:
+
+1. Look up the candidate CPU's PassMark CPU Mark score at cpubenchmark.net.
+2. Multiply the target camera count by ~2,000 for the minimum required score, then add the
+   20–30% safety margin and the OS overhead noted above.
+3. Multiply the target camera count by ~1.6 GB for RAM, then add OS/application overhead and the
+   same safety margin.
+
+**Note:** This per-camera cost is a fixed default built into the application, applied the same
+way regardless of CPU generation or architecture — the same limitation as the GHz-equivalent
+figure in the benchmark results below.
+
+**Important:** Use this calculator to narrow down candidate hardware, not as the final number
+quoted to a customer. Confirm it with the benchmark tool described next, run on the actual
+candidate machine, before finalizing a quote.
+
+---
+
 ### How Per-Camera Requirements Are Measured
 
 Rather than relying only on a generic estimate, the camera processing node application ships
