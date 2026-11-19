@@ -18,6 +18,7 @@ This repository contains all documentation related to camera setup, installation
 | [Installation Guide](installation-guide.md)   | Step-by-step setup for the ID Vision system.                 |
 | [Camera Setup](camera-setup.md)               | Detailed guide for configuring cameras and bitrate settings. |
 | [Face Tuning Tool Guide](worker/face_tuning_guide.md) | How to use the worker's Face Tuning page to test and adjust per-camera detection thresholds. |
+| [Hygiene Vision Worker Guide](hygiene/hygiene_vision_worker_guide.md) | Install, configure, and read the results of the food-safety hygiene worker (PPE, smoking, person down). |
 
 ---
 
