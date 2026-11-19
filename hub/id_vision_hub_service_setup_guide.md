@@ -240,6 +240,7 @@ Choose an option:
 - On startup, the hub validates `files\license\license.json` against the packaged public key and this machine's hardware fingerprint.
 - If the license is missing, invalid, or expired, the hub runs in **Maintenance Mode** until a valid license is uploaded.
 - The license also carries the account's **worker** and **camera** limits (`max_workers`, `max_cameras`); once active, the hub enforces these limits when registering new workers/cameras.
+- The license also lists the **modules** it includes: **Face identification** (for **ID Vision Worker**) and **Hygiene (PPE)** (for the hygiene worker). See **License Modules** below.
 - A license issued for **ID Vision Worker** is explicitly rejected by the hub, and vice versa — each product checks its own `product` field in the license file, so the hub and each worker need their own separate `license.json`, even though all are signed with the same key.
 
 ### 🚀 Activating a License
@@ -275,9 +276,26 @@ On a virtual machine or container, a license works for at most **2 years** from 
 
 When the 2 years are over, the hub enters Maintenance Mode and the page says so. To keep using the hub, install it on a physical machine or use a hardware key (dongle) license. Physical machines and dongle licenses are not affected by this limit.
 
+### 🧩 License Modules
+
+A license includes one or both modules:
+
+| Module                  | Enables                                                                 |
+| ----------------------- | ----------------------------------------------------------------------- |
+| **Face identification** | **ID Vision Worker** devices, the **ILogs** and **Search by Face** pages |
+| **Hygiene (PPE)**       | Hygiene workers, the **Violations** page                                |
+
+- A license issued before modules existed includes **both** modules.
+- A trial license includes **both** modules.
+- The **License** page lists the modules of the active license.
+- The menu hides the pages of a module the license does not include.
+- A worker of a module the license does not include cannot register with the hub, and the hub refuses its data with HTTP `403`. Adding such a worker on the **Workers** page shows an error.
+
+To add a module, obtain a new license that includes it and upload it on the `/maintenance/` page, or issue one as a partner (see below). The hub applies the new license without a restart.
+
 ### 🤝 Partner-Issued Licenses
 
-A license issued by a partner company from the **Issue a license (partner companies)** section of the `/maintenance/` page carries that partner's name. When the partner's branding is built into the hub, the **About** page and the page footer show the partner's name, logo, and copyright instead of **ID Vision Hub**'s. The software version shown is always the hub's real version.
+In the **Issue a license (partner companies)** section of the `/maintenance/` page, tick the **Modules** the customer has paid for; at least one is required. A license issued by a partner company from the **Issue a license (partner companies)** section of the `/maintenance/` page carries that partner's name. When the partner's branding is built into the hub, the **About** page and the page footer show the partner's name, logo, and copyright instead of **ID Vision Hub**'s. The software version shown is always the hub's real version.
 
 ---
 
@@ -365,6 +383,7 @@ How each worker uses the area:
 | 🔁 `Service doesn't restart`     | NSSM config not updated              | Re-run option `[1] Install Service`           |
 | 🔒 Redirected to `/maintenance/` on every page | License missing, invalid, expired, or issued for the wrong product | Upload a `license.json` signed for this hub's fingerprint with `"product": "id_vision_hub"` — see the **License Activation & Maintenance Mode** section above |
 | 🖥️ Maintenance page says the virtual-machine period has ended | The license has run for 2 years on a virtual machine | Install the hub on a physical machine, or use a dongle license |
+| 🧩 A worker cannot register, or its data is refused with `403` | The license does not include that worker's module | Check the modules on the **License** page; obtain a license that includes the module |
 | 🎁 Trial request refused | A trial was already issued for this machine, the machine is a virtual machine, or there is no internet access | Obtain a full license, or check the internet connection and retry |
 
 ---
